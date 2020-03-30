@@ -1,0 +1,6 @@
+FILIX notes
+-------------
+
+
+# this is a tag-template-litterate  (a string has been tagged to that var by backticks)
+const MyButton = styled.button`background: #333;`
