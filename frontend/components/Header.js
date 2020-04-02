@@ -18,7 +18,7 @@ Router.onRouteChangeError = () => {
 
 const Logo = styled.h1`
   font-size: 4rem;
-  margin-right: 2rem;
+  margin-left: 2rem;
   position: relative;
   z-index: 2;
   transform: skew(-7deg);
