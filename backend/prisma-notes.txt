@@ -1,0 +1,32 @@
+Prisma
+---------
+
+a Graphql database interface : provides a set of Graphql CRUD API's for mySQL /MongoDB DB
+
+
+[FLX@localhost ~/Development/projects/advancedReact/Advanced-React/sick-fits/backend (master *)]$ prisma deploy --env-file variables.env
+Creating stage dev for service flx-sickfit ✔
+Deploying service `flx-sickfit` to stage `dev` to server `prisma-eu1` 417ms
+
+Changes:
+
+  User (Type)
+  + Created type `User`
+  + Created field `id` of type `ID!`
+  + Created field `name` of type `String!`
+
+Applying changes 680ms
+
+post-deploy:
+project prisma - Schema file was updated: src/generated/prisma.graphql
+
+Running graphql get-schema -p prisma ✔
+
+Your Prisma endpoint is live:
+
+  HTTP:  https://eu1.prisma.sh/felixadam/flx-sickfit/dev
+  WS:    wss://eu1.prisma.sh/felixadam/flx-sickfit/dev
+
+You can view & edit your data here:
+
+  Prisma Admin: https://eu1.prisma.sh/felixadam/flx-sickfit/dev/_admin
