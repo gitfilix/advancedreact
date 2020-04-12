@@ -38,6 +38,8 @@ You can view & edit your data here:
  this file connects to remote prisma db and gives us ability to query with js
 
 
+
+
 createServer.js
 ---------------
 
@@ -45,7 +47,13 @@ our express server for graphql customized.
 
 
 
-resolver:
-how do we get this particular data or how 
+a resolver:
+how do we get this particular data or how we process it
 
-apollo-server is 
+
+datamodel.prisma: 
+
+our datamodel for interaction with db prisma. -> if that datamodel changes, run again
+
+'npm run deploy' 
+to make it known to the db

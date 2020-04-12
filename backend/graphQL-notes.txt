@@ -10,3 +10,38 @@ type Mutation {
 type Query {
   dogs: [Dog]!
 }
+
+
+
+datamodel.prisma:
+
+type User {
+  id: ID! @id
+  name: String!
+  email: String!
+}
+
+type Item {
+  id: ID! @id
+  title: String!
+  description: String! 
+  image: String
+  largeImage: String
+  price: Int!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+after that
+-> run 
+## npm run deploy
+
+
+-> then the prisma.graphql file will be generated / & updatedAt
+
+in createServer:
+
+  context: req => ({ ...req, db })
+therefore  -> we have access of the db via contex (ctx) connection
+
+-> so we use it in Mutation
