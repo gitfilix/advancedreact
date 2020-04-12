@@ -8,3 +8,16 @@ const MyButton = styled.button`background: #333;`
 custom Document only on the server-side
 
 add pages/_document.js
+
+
+
+withData.js:
+connection to AppolloClient by api-endpoins specified in config.js
+
+
+_app:
+export withData so it is accessible by apollo 
+
+
+
+export default withData(MyApp)
