@@ -30,3 +30,9 @@ Your Prisma endpoint is live:
 You can view & edit your data here:
 
   Prisma Admin: https://eu1.prisma.sh/felixadam/flx-sickfit/dev/_admin
+
+
+ db.js
+ ------
+
+ this file connects to remote prisma db and gives us ability to query with js
