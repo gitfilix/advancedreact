@@ -36,3 +36,12 @@ You can view & edit your data here:
  ------
 
  this file connects to remote prisma db and gives us ability to query with js
+
+
+createServer.js
+---------------
+
+express server for graphql.
+
+
+apollo-server is 
