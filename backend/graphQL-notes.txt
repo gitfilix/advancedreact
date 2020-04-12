@@ -1,7 +1,8 @@
 type Dog {
   name: String!
 }
-# we create a Dog, type must be string, != required , : Dog will be returned
+
+# we create a Dog, type = string, != required , : Dog will be returned
 type Mutation {
   createDog(name: String!) : Dog
 }

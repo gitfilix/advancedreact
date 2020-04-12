@@ -41,7 +41,11 @@ You can view & edit your data here:
 createServer.js
 ---------------
 
-express server for graphql.
+our express server for graphql customized.
 
+
+
+resolver:
+how do we get this particular data or how 
 
 apollo-server is 

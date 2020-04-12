@@ -17,6 +17,6 @@ const server = createServer()
       origin: process.env.FRONTEND_URL,
     },
   }, deets => {
-      console.log(`BackendServer is now running on port http://localhost${deets.port}`)
+      console.log(`BackendServer Yoga-graphQL for Filiks sick Fits is now RUNNIGN on port http://localhost${deets.port}`)
   }
 )
