@@ -23,3 +23,7 @@ export withData so it is accessible by apollo
 
 
 export default withData(MyApp)
+
+
+Mutation-function with IMPLICIT RETURN with this normal brackets => ()
+IMPLICIT return 

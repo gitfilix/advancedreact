@@ -18,7 +18,7 @@ const ALL_ITEMS_QUERY = gql`
 `;
 
 const Center = styled.div`
-  text-align:center;
+  text-align: center;
 `
 const ItemsList = styled.div`
   display: grid;
@@ -48,3 +48,4 @@ export default class Items extends Component {
     );
   }
 }
+export { ALL_ITEMS_QUERY }
