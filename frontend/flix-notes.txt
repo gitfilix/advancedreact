@@ -2,6 +2,8 @@ FILIX notes
 -------------
 
 
+https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/template_strings
+
 # this is a tag-template-litterate  (a string has been tagged to that var by backticks)
 const MyButton = styled.button`background: #333;`
 
