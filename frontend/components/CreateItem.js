@@ -32,11 +32,13 @@ class CreateItem extends Component {
   state = {
     title: 'cool big dog',
     description: 'I love those sniekers dogs',
-    image: 'dog.jpg',
-    largeImage: 'bigdog.jpg',
+    image: '',
+    largeImage: '',
     price: 1780
-  };
+  }
 
+  // onChange of every field - update state
+  // very fancy: [name] is variable
   handleChange = (e) => {
     const {name, type, value } = e.target
     const val = type === 'number' ? parseFloat(value) : value
@@ -45,17 +47,37 @@ class CreateItem extends Component {
     })
   }
 
+  //image upload
+  // cloudinary img upload preset settings
+ 
+  // cloudinary
+  uploadFile = async e => {
+    const files = e.target.files
+    const data = new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'sickfits')
+    // my personal cloudinary upload path
+    const res = await fetch('https://api.cloudinary.com/v1_1/filikspix100/image/upload', {
+      method: 'POST',
+      body: data
+    });
+    const file = await res.json()
+    this.setState({
+      image: file.secure_url,
+      largeImage: file.eager[0].secure_url,
+    })
+  }
   // Mutation-function with IMPLICIT RETURN with this normal brackets => ()
   render() {
     return (
       <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
         {(createItem, { loading, error }) => (
         <Form onSubmit={ async (e) => {
-          // stop form from submitting
+          // 1. stop form from submitting
           e.preventDefault()
-          // call the mutation
+          // 2. call the mutation
           const res = await createItem()
-          // change them to the single item page
+          // 3. change them to the single item page
           console.log('response', res);
           Router.push({
             pathname: '/item',
@@ -65,6 +87,19 @@ class CreateItem extends Component {
           <Error error={error} />
           {/* if loading is true disable form and trigger bg-animation */}
           <fieldset disabled={loading} aria-busy={loading} >
+            <label htmlFor='file'>
+              Image
+                <input 
+                  type='file' 
+                  id='file' 
+                  name='file' 
+                  placeholder='Upload an image'
+                  onChange={this.uploadFile}
+                  />
+                {this.state.image && (
+                  <img width="200" src={this.state.image} alt="Upload Preview" />
+                )}
+            </label>
             <label htmlFor='title'>
               Title
                 <input 

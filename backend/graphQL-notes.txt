@@ -45,3 +45,13 @@ in createServer:
 therefore  -> we have access of the db via contex (ctx) connection
 
 -> so we use it in Mutation
+
+
+
+cloudinary img service
+-------------------------
+pw: 1333-SickFits_$$
+
+cloudname: filiks-pix100
+
+img-upload preset: sickfits
