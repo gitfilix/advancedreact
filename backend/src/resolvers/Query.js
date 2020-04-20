@@ -1,4 +1,5 @@
 const { forwardTo } = require('prisma-binding');
+// query RESOLVERS
 
 const Query = {
   // forwarded directly to prisma

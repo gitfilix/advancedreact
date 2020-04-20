@@ -46,6 +46,23 @@ therefore  -> we have access of the db via contex (ctx) connection
 
 -> so we use it in Mutation
 
+update ItemupdateItem(parent, args, ctx, info) {
+    // first take a copy of updates:
+    const updates = { ...args }
+    // remove ID from updates - as we never what to update the id
+    delete updates.id 
+    // run the update method - so we have access to all the mutation methods of prisma.graphql
+    return ctx.db.mutation.updateItem(
+      {
+        data: updates,
+        where: {
+          id: args.id 
+        },
+      }, info
+    )
+  }
+
+
 
 
 cloudinary img service
@@ -55,3 +72,6 @@ pw: 1333-SickFits_$$
 cloudname: filiks-pix100
 
 img-upload preset: sickfits
+
+
+

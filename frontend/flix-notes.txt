@@ -1,6 +1,8 @@
 FILIX notes
 -------------
 
+slack
+12slackFLX34
 
 https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/template_strings
 

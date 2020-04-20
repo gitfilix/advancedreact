@@ -6,7 +6,9 @@ import gql from 'graphql-tag'
 import formatMoney from '../lib/formatMoney'
 import Error from './ErrorMessage'
 
-// single Item query
+// single Item query:
+// take the id passed in the url (and by props) and put it into form - so the user can see
+// which item gets updated. 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($id :ID!) {
     item(where: { id: $id}) {
@@ -21,20 +23,21 @@ const SINGLE_ITEM_QUERY = gql`
 //mutation query
 const UPDATE_ITEM_MUTATION = gql`
   mutation UPDATE_ITEM_MUTATION(
-      $title: String!
-      $description: String!
-      $price: Int!
-      $image: String
-      $largeImage: String
-  ) {
-    teItem(
-      title: $title
-      description: $description
+      $id: ID!,
+      $title: String,
+      $description: String,
+      $price: Int) {
+    updateItem(
+      id: $id,
+      title: $title,
+      description: $description,
       price: $price
-      image: $image
-      largeImage: $largeImage
-    ) {
-      id
+    )
+    {
+      id,
+      title
+      description
+      price
     }
   }
 `
@@ -51,68 +54,87 @@ class UpdateItem extends Component {
       [name]: val
     })
   }
+  updateItem = async (e, updateItemMutation) => {
+    e.preventDefault()
+    console.log('Update Item!!');
+    console.log(this.state)
+    const res = await updateItemMutation({
+      variables: {
+        id: this.props.id,
+        ...this.state,
+      }
+    })
+    console.log('updated');
+  }
 
 
   // Mutation-function with IMPLICIT RETURN with this normal brackets => ()
   render() {
     return (
-      <Mutation mutation={UPDATE_ITEM_MUTATION} variables={this.state}>
-        {(createItem, { loading, error }) => (
-          <Form onSubmit={async (e) => {
-            // 1. stop form from submitting
-            e.preventDefault()
-            // 2. call the mutation
-            const res = await createItem()
-            // 3. change them to the single item page
-            console.log('response', res);
-            Router.push({
-              pathname: '/item',
-              query: { id: res.data.createItem.id }
-            })
-          }}>
-            <Error error={error} />
-            {/* if loading is true disable form and trigger bg-animation */}
-            <fieldset disabled={loading} aria-busy={loading} >
-              <label htmlFor='title'>
-                Title
-                <input
-                  type='text'
-                  id='title'
-                  name='title'
-                  placeholder='Title'
-                  required
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <label htmlFor='price'>
-                Price
-                <input
-                  type='number'
-                  id='price'
-                  name='price'
-                  placeholder='Title'
-                  required
-                  value={this.state.price}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <label htmlFor='description'>
-                Description
-                <textarea
-                  id='description'
-                  name='description'
-                  placeholder='Enter a Description'
-                  required
-                  value={this.state.description}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </fieldset>
-            <button type='submit'>Submit Form</button>
-          </Form>
-        )}
-      </Mutation>
+      <Query query={SINGLE_ITEM_QUERY} variables={{
+        id: this.props.id
+      }}>
+        
+        {({data, loading}) => {
+          if(loading) 
+            return( 
+              <p>Loading...</p>
+          )
+          if(!data.item)
+            return(
+            <p>No Item found for ID {this.props.id}</p>
+            )
+        return (
+        <Mutation mutation={UPDATE_ITEM_MUTATION} variables={this.state}>
+          {(updateItem, { loading, error }) => (
+            <Form onSubmit={e => this.updateItem(e, updateItem)}>
+              <Error error={error} />
+              {/* if loading is true disable form and trigger bg-animation */}
+              {/* one-time prepopulation fields defaultValue={data.item.title} */}
+              <fieldset disabled={loading} aria-busy={loading} >
+                <label htmlFor='title'>
+                  Title
+                  <input
+                    type='text'
+                    id='title'
+                    name='title'
+                    placeholder='Title'
+                    required
+                    defaultValue={data.item.title}
+                    onChange={this.handleChange}
+                    />
+                </label>
+                <label htmlFor='price'>
+                  Price
+                  <input
+                    type='number'
+                    id='price'
+                    name='price'
+                    placeholder='Title'
+                    required
+                    defaultValue={data.item.price}
+                    onChange={this.handleChange}
+                    />
+                </label>
+                <label htmlFor='description'>
+                  Description
+                  <textarea
+                    id='description'
+                    name='description'
+                    placeholder='Enter a Description'
+                    required
+                    defaultValue={data.item.description}
+                    onChange={this.handleChange}
+                    />
+                </label>
+              </fieldset>
+          <button type='submit'>Sav{loading ? 'ing': 'e'} Changes</button>
+            </Form>
+          )}
+        </Mutation>
+      )
+      }}
+    </Query>
     )
   }
 }

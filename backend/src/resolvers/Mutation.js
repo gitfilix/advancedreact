@@ -14,11 +14,11 @@ const Mutations = {
     return item
   },
   updateItem(parent, args, ctx, info) {
-    // first take a copy of updates
+    // first take a copy of updates (with id):
     const updates = { ...args }
     // remove ID from updates - as we never what to update the id
     delete updates.id 
-    // run the update method
+    // run the update method - so we have access to all the mutation methods of prisma.graphql
     return ctx.db.mutation.updateItem(
       {
         data: updates,
