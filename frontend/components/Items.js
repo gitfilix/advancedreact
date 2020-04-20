@@ -34,7 +34,7 @@ export default class Items extends Component {
   render() {
     return (
       <Center>
-        <Pagination />
+        <Pagination page={this.props.page} />
         <Query query={ALL_ITEMS_QUERY}>
           {({ data, error, loading })=> {
             console.log('data', data);
@@ -47,7 +47,7 @@ export default class Items extends Component {
             )
           }}
         </Query>
-       <Pagination />
+       <Pagination page={this.props.page} />
       </Center>
     );
   }
