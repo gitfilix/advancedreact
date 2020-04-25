@@ -3,11 +3,15 @@ require('dotenv').config({ path: 'variables.env'})
 // its not a package it is a (config-)file
 const createServer = require('./createServer')
 const db = require('./db')
+// to set and manupulate cookies
+const cookieParser = require('cookie-parser')
 
 // a version of graphql -yoga server
 const server = createServer()
 
-// TODO Use express middleware to handle cookies
+// Cookieparser: Use express middleware to handle cookies (JWT)
+server.express.use(cookieParser());
+
 // TODO Use express middleware to handle cookies
 
 // HERE we connect to our frontend
