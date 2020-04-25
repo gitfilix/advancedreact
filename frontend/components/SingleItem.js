@@ -59,7 +59,7 @@ class SingleItem extends Component {
           <span>Loading</span>
         )
         if (!data.item) return (
-        <p>No item foutn for {this.props.id}</p>
+        <p>No item found for {this.props.id}</p>
         )
         const item = data.item
         return (

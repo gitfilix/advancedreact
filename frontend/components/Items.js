@@ -5,10 +5,12 @@ import styled from 'styled-components'
 import Item from './Item'
 import Pagination from './Pagination'
 import PaginationStyles from './styles/PaginationStyles'
+import { perPage } from '../config'
 
+// query with default argument skip: default initial value 0, Int:  
 const ALL_ITEMS_QUERY = gql`
-  query ALL_ITEMS_QUERY {
-    items {
+  query ALL_ITEMS_QUERY($skip: Int = 0, $first: Int = ${perPage}) {
+    items(first: $first, skip: $skip, orderBy: createdAt_DESC) {
       id
       title
       price
@@ -35,15 +37,21 @@ export default class Items extends Component {
     return (
       <Center>
         <Pagination page={this.props.page} />
-        <Query query={ALL_ITEMS_QUERY}>
+        <Query 
+          query={ALL_ITEMS_QUERY}
+          // fetchPolicy='network-only' 
+          variables={{
+            skip: (this.props.page * perPage -perPage)
+          }}
+        >  
           {({ data, error, loading })=> {
             console.log('data', data);
             if(loading) return <p>Loading Data...</p>
             if(error) return <p>Error: {error.message}</p>
             return (
               <ItemsList>
-              {data.items.map(item => <Item item={item} key={item.id}/>)}
-            </ItemsList>
+                {data.items.map(item => <Item item={item} key={item.id}/>)}
+              </ItemsList>
             )
           }}
         </Query>
